@@ -33,6 +33,7 @@ var allFunctions = function () {
   };
 
   var getPlacenames_plain_javascript = function (
+  
     postalcodeInput,
     countryInput
   ) {
@@ -57,6 +58,7 @@ var allFunctions = function () {
   };
 
   var searchFromInput = function () {
+	  
     var postalcodeInput;
     var countryInput;
 
@@ -97,6 +99,7 @@ var allFunctions = function () {
 
   //   "use strict";
   var anotherGeonamesRequest = function (latitude, longitude) {
+	
     var baseUrl =
       "http://api.geonames.org/findNearestIntersectionOSM?username=bktudelft";
     var params = "&lat=" + latitude + "&lng=" + longitude;
@@ -155,6 +158,10 @@ var allFunctions = function () {
   };
 
   var getAndDisplayMap = function (wms_request) {
+	
+	// CHANGE: empty mapDiv
+	document.querySelector("main .mapDiv").innerHTML = "";
+	  
     var img = document.createElement("img");
     img.style.display = "none";
     img.src = wms_request;
@@ -221,6 +228,13 @@ var allFunctions = function () {
   };
 
   var searchFromInput = function () {
+	// CHANGE: empty all for new geonames request
+	document.querySelector("main .forDebug2").innerHTML = "";
+	document.querySelector("#xmlDataAsTable").innerHTML = "";
+	document.querySelector("main .messages").textContent = "";
+    document.querySelector("main .forDebug").textContent = "";
+	document.querySelector("main .mapDiv").innerHTML = "";
+	  
     var postalcodeInput;
     var countryInput;
 
@@ -241,6 +255,7 @@ var allFunctions = function () {
   };
 
   document.body.addEventListener("click", function (event) {
+	  
     if (event.target.matches("input.theButton2")) {
       console.log("a button2 clicked");
       console.log(event.target.parentNode.parentNode.children);
@@ -264,6 +279,10 @@ var allFunctions = function () {
           break;
         }
       }
+	  // CHANGE: empty DataTable & Debug
+	  document.querySelector("main .forDebug2").innerHTML = "";
+	  document.querySelector("#xmlDataAsTable").innerHTML = "";
+
       anotherGeonamesRequest(lat, lng);
     }
 
