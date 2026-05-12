@@ -47,9 +47,9 @@ var map = L.map("map-canvas", {
 
 // 2. aerial photo * not working at this moment (see Assignment)
 //    - can be switched on/off by toggle thru L.control.layers (see below in this script)
-var wms_aerial_url = "https://geodata1.nationaalgeoregister.nl/luchtfoto/wms?";
+var wms_aerial_url = "https://service.pdok.nl/hwh/luchtfotorgb/wms/v1_0?";
 var basemap_aerial = new L.tileLayer.wms(wms_aerial_url, {
-  layers: ["luchtfoto_png"],
+  layers: ["2025_orthoHR"],
   styles: "",
   format: "image/png",
   transparent: true,
@@ -71,8 +71,46 @@ var sound = new L.tileLayer.wms(wms_sound_url, {
   pointerCursor: true,
 });
 
+// 4. a thematic WMS as overlay map
+var wms_parcels_url = "http://localhost:8080/geoserver/artemi/wms?";
+var parcels = new L.tileLayer.wms(wms_parcels_url, {
+  layers: ["parcels"],
+  styles: "polygon",
+  format: "image/png",
+  transparent: true,
+  // attribution:
+    // '© <a href="https://www.nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/cb1ac266-b9e7-4adf-a2a2-d04f5d1f1d2c?tab=general"> Rijkswaterstaat</a>',
+  pointerCursor: true,
+});
+
+// 5. a thematic WMS as overlay map
+var wms_top10_url = "http://localhost:8080/geoserver/artemi/wms?";
+var top10 = new L.tileLayer.wms(wms_top10_url, {
+  layers: ["artemi:GEBOUW_VLAK", "artemi:WATERDEEL_VLAK"],
+  styles: "",
+  format: "image/png",
+  transparent: true,
+  // attribution:
+    // '© <a href="https://www.nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/cb1ac266-b9e7-4adf-a2a2-d04f5d1f1d2c?tab=general"> Rijkswaterstaat</a>',
+  pointerCursor: true,
+});
+
+// 6. a PDOK baselayer
+var wms_ahn_url = "https://service.pdok.nl/rws/actueel-hoogtebestand-nederland/wms/v1_0?request=GetCapabilities&service=WMS";
+var ahn = new L.tileLayer.wms(wms_ahn_url, {
+  layers: ["dsm_05m"],
+  styles: "",
+  format: "image/png",
+  transparent: false,
+  // attribution:
+    // '© <a href="https://www.nationaalgeoregister.nl/geonetwork/srv/dut/catalog.search#/metadata/cb1ac266-b9e7-4adf-a2a2-d04f5d1f1d2c?tab=general"> Rijkswaterstaat</a>',
+  pointerCursor: true,
+});
+
 var overlays = {
-  "Road noise [WMS]": sound,
+  "Road noise [WMS]": sound, 
+  "Parcels [WMS]": parcels,
+  "Top 10 [WMS]": top10,
 };
 
 var baseLayers = {
@@ -81,6 +119,7 @@ var baseLayers = {
   "BRT-Achtergrondkaart Pastel [WMTS]": brtPastel,
   "BRT-Achtergrondkaart Water [WMTS]": brtWater,
   "Aerial photo [WMS]": basemap_aerial,
+  "AHN DSM [WMS]": ahn,
 };
 
 L.control.layers(baseLayers, overlays).addTo(map);

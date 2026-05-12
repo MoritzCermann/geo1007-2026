@@ -1,4 +1,5 @@
 var allFunctions = function () {
+var allFunctions = function () {
   "use strict";
 
   var createTableFromJsonResponse = function (data) {
