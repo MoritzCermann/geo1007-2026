@@ -1,0 +1,27 @@
+body {
+	background: oklch(0.948 0.0411 203.65);
+}
+
+ol {
+	border: solid;
+	border-width: 2px;
+	border-color: #404040;
+}
+
+#list-a {
+	font-family: sans-serif;
+}
+
+#list-b {
+	font-family: monospace;
+}
+
+p {
+	border: solid;
+	border-width: 5px;
+	border-color: black;
+}
+
+h1 {
+	text-align: center;
+}
